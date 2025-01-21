@@ -12,7 +12,8 @@ class TestDataFunctions(unittest.TestCase):
                 'tickers': ['TSLA'],
                 'title': 'Tesla Stock Rises',
                 'description': 'Tesla stock is on the rise.',
-                'keywords': ['Tesla', 'Stock', 'Market']
+                'keywords': ['Tesla', 'Stock', 'Market'],
+                'url': 'https://www.google.com'
             }
         ]
         stock_data = {

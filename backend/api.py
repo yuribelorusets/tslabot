@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 API_KEY = 'JKge37H5qEXX5o9eNWqjY5ZoipFTPTRr'
 NEWS_BASE_URL = 'https://api.polygon.io/v2/reference/news'
 STOCK_BASE_URL = 'https://api.polygon.io/v1/open-close/{ticker}/{date}'
+MARKET_HOLIDAYS_URL = 'https://api.polygon.io/v1/marketstatus/upcoming'
 
 def fetch_news(ticker='TSLA', limit=10):
     news_params = {
@@ -36,4 +37,14 @@ def fetch_stock_data(ticker='TSLA', date=None):
         return stock_response.json()
     else:
         print(f"Error fetching stock data: {stock_response.status_code}, {stock_response.text}")
+        return None
+
+def fetch_market_holidays():
+    """Fetch the upcoming market closures from the Polygon API."""
+    response = requests.get(MARKET_HOLIDAYS_URL, params={'apiKey': API_KEY})
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Error fetching market holidays: {response.status_code}, {response.text}")
         return None

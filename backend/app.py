@@ -1,10 +1,22 @@
-from api import fetch_news, fetch_stock_data  # Import functions from api.py
+from api import fetch_news, fetch_stock_data, fetch_market_holidays  # Import functions from api.py
 from analyze import analyze_sentiments  # Import the sentiment analysis function from analyze.py
 from datetime import datetime, timedelta
 
 def is_market_open(date):
     # Check if the date is a weekend (Saturday or Sunday)
-    return date.weekday() < 5  # Monday to Friday are 0-4
+    if date.weekday() >= 5:  # Saturday or Sunday
+        return False
+
+    # Fetch market holidays from the Polygon API
+    market_holidays = fetch_market_holidays()
+
+    if market_holidays:
+        # Check if the date is in the market holidays response
+        for holiday in market_holidays:
+            if holiday['date'] == date.strftime('%Y-%m-%d') and holiday['status'] == 'closed':
+                return False
+
+    return True  # The market is open if it's not a weekend and not a holiday
 
 def next_trading_day(start_date):
     # Increment the date until we find a weekday (Monday to Friday)
