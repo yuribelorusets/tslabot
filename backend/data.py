@@ -35,8 +35,8 @@ def prepare_dataset(news_data, stock_data):
     return pd.DataFrame(dataset)
 
 # Assuming you have the Polygon news data and stock price data
-news_data = polygon_news_response  # Your Polygon.io news API response
-stock_prices = get_stock_prices()  # Function to get stock prices for relevant dates
+# news_data = polygon_news_response  # Your Polygon.io news API response
+# stock_prices = get_stock_prices()  # Function to get stock prices for relevant dates
 
 # Create the dataset
-training_data = prepare_dataset(news_data, stock_prices)
+# training_data = prepare_dataset(news_data, stock_prices)
